@@ -138,7 +138,7 @@
       git:
         repo: "{{hostvars[inventory_hostname]['github_repo']}}"
         dest: "{{hostvars[inventory_hostname]['dir']}}/src"
-        version: repo
+        version: ansible
 
     - name: Create a Python virtual environment
       ansible.builtin.command:
