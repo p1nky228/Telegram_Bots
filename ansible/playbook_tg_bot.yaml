@@ -133,11 +133,11 @@
           - python3-venv
         state: latest
     - name: mkdir
-      command: mkdir -p "{{hostvars[inventory_hostname]['dir']}}/src"
+      command: mkdir -p "{{hostvars[inventory_hostname]['dir']}}/source"
     - name: git clone
       git:
         repo: "{{hostvars[inventory_hostname]['github_repo']}}"
-        dest: "{{hostvars[inventory_hostname]['dir']}}/src"
+        dest: "{{hostvars[inventory_hostname]['dir']}}/source"
         version: ansible
 
     - name: Create a Python virtual environment
@@ -146,12 +146,12 @@
 
     - name: Install dependencies using pip in the virtual environment
       ansible.builtin.shell:
-        cmd: myenv/bin/pip install -r "{{hostvars[inventory_hostname]['dir']}}/src/requirements.txt"
+        cmd: myenv/bin/pip install -r "{{hostvars[inventory_hostname]['dir']}}/source/ansible/requirements.txt"
       environment:
         PATH: "myenv/bin:{{ ansible_env.PATH }}"
 
     - name: start python
-      command: myenv/bin/python3 "{{ hostvars[inventory_hostname]['dir'] }}/src/bot.py" &
+      command: myenv/bin/python3 "{{ hostvars[inventory_hostname]['dir'] }}/source/ansible/bot.py" &
       environment:
         TOKEN       : "{{hostvars[inventory_hostname]['TOKEN'] }}"
         RM_HOST        : "{{hostvars[inventory_hostname]['RM_HOST'] }}"
